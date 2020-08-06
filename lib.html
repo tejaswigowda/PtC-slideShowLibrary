@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+  </head>
+  <script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+<style>
+body{
+  margin: 0;
+}
+
+  img{
+display: block;
+height: 300px;    
+  }
+  .active{
+    background: gold;
+  }
+  #imgWrapper{
+    height: 90vh;
+    width: 100vw;
+  }
+  #imgWrapper div{
+    height: 90vh;
+    width: 100vw;
+    background-repeat:no-repeat;
+    position:absolute;
+    background-position: 50% 50%;
+    background-size: contain;
+    transition-duration: 1s;
+  }
+  </style>
+  <body>
+  <div id='imgWrapper'>
+  </div>
+
+    <button onclick='goPrev()'> Prev </button>
+
+  <div id='numWrapper'>
+  </div>
+
+    <button onclick='goNext()'> Next </button>
+
+    </body>
+    <script>
+      var imgs = location.hash.replace("#","").split(",")
+      var markup = "";
+      for(var i = 0; i < imgs.length; i++){
+        markup = markup + "<button onclick='goToSlide(" + i + ")'>" + (i+1) + "</button>"
+      }
+      document.getElementById("numWrapper").innerHTML = markup;
+
+      var markup = "";
+      for(var i = 0; i < imgs.length; i++){
+        markup = markup + "<div style='background-image:url(" + imgs[i] + ")'></div>"
+      }
+      document.getElementById("imgWrapper").innerHTML = markup;
+
+      var currSlide = 0;
+
+      var goToSlide = function(n){
+      //  $("#imgWrapper div").css("opacity", 0);
+      //  $($("#imgWrapper div")[n]).css("opacity", 1);
+      
+
+      var arr = $("#imgWrapper div");
+      for(var i = 0; i < arr.length; i++){
+        if(i < n){
+          $(arr[i]).css("transform", "translate(-100%,0)");
+        }
+        else if(i == n){
+          $(arr[i]).css("transform", "translate(0%,0%)");
+        }
+        else{
+          $(arr[i]).css("transform", "translate(100%,0%)");
+        }
+      }
+
+        currSlide = n;
+        $("#numWrapper button").removeClass("active")
+        $($("#numWrapper button")[currSlide]).addClass("active")
+      }
+
+      goToSlide(0);
+      var goPrev = function(){
+        currSlide = currSlide - 1;
+        if(currSlide < 0){
+          currSlide = imgs.length - 1;
+        }
+        goToSlide(currSlide);
+      }
+
+      var goNext = function(){
+        currSlide = currSlide + 1;
+        if(currSlide > imgs.length){
+          currSlide = 0;
+        }
+        goToSlide(currSlide);
+      }
+      </script>
+</html>
