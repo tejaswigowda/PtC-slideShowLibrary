@@ -26,4 +26,5 @@ Example:
 
 
 ## Files
-The library is implemented in `lib.html` and the demonstration is in 
+The library is implemented in `lib.html` and the demonstration is in
+`index.html`.
