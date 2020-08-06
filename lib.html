@@ -9,6 +9,7 @@
 <style>
 body{
   margin: 0;
+  overflow:hidden;
 }
 
   img{
@@ -17,6 +18,46 @@ height: 300px;
   }
   .active{
     background: gold;
+  }
+  #numWrapper{
+    height: 30px;
+    width: 80vw;
+    left: 10vw;
+    position:fixed;
+    bottom: 10px;
+    text-align:center;
+  }
+  #numWrapper button{
+    font-size: 30px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 5px;
+    border: 1px solid;
+  }
+  #prev{
+    position:fixed;
+    bottom: 50vh;
+    left: 10px;
+    border: none;
+    border-left: 3px solid;
+    border-top: 3px solid;
+    height: 30px;
+    width: 30px;
+    transform: rotate(-45deg);
+    background: transparent;
+  }
+  #next{
+    position:fixed;
+    bottom: 50vh;
+    right: 10px;
+    border: none;
+    border-right: 3px solid;
+    border-bottom: 3px solid;
+    height: 30px;
+    width: 30px;
+    transform: rotate(-45deg);
+    background: transparent;
   }
   #imgWrapper{
     height: 90vh;
@@ -36,12 +77,12 @@ height: 300px;
   <div id='imgWrapper'>
   </div>
 
-    <button onclick='goPrev()'> Prev </button>
+    <button id='prev' onclick='goPrev()'> </button>
 
   <div id='numWrapper'>
   </div>
 
-    <button onclick='goNext()'> Next </button>
+    <button id='next' onclick='goNext()'> </button>
 
     </body>
     <script>
@@ -61,22 +102,9 @@ height: 300px;
       var currSlide = 0;
 
       var goToSlide = function(n){
-      //  $("#imgWrapper div").css("opacity", 0);
-      //  $($("#imgWrapper div")[n]).css("opacity", 1);
+        $("#imgWrapper div").css("opacity", 0);
+        $($("#imgWrapper div")[n]).css("opacity", 1);
       
-
-      var arr = $("#imgWrapper div");
-      for(var i = 0; i < arr.length; i++){
-        if(i < n){
-          $(arr[i]).css("transform", "translate(-100%,0)");
-        }
-        else if(i == n){
-          $(arr[i]).css("transform", "translate(0%,0%)");
-        }
-        else{
-          $(arr[i]).css("transform", "translate(100%,0%)");
-        }
-      }
 
         currSlide = n;
         $("#numWrapper button").removeClass("active")
@@ -94,7 +122,7 @@ height: 300px;
 
       var goNext = function(){
         currSlide = currSlide + 1;
-        if(currSlide > imgs.length){
+        if(currSlide > imgs.length - 1){
           currSlide = 0;
         }
         goToSlide(currSlide);
